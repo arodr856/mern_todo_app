@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 const { todosRoute } = require('./routes/index');
 const { mongodbConfig } = require('./config/config');
@@ -7,6 +8,9 @@ const { mongodbConfig } = require('./config/config');
 mongoose.connect(mongodbConfig.uri, {useNewUrlParser: true})
 
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/api/todos', todosRoute);
 
