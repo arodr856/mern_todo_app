@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const { todosRoute } = require('./routes/index');
 const { mongodbConfig } = require('./config/config');
 
-mongoose.connect(mongodbConfig.uri, {useNewUrlParser: true});
+mongoose.connect(mongodbConfig.uri, {useNewUrlParser: true})
 
 const app = express();
 
