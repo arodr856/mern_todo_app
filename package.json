@@ -1,0 +1,11 @@
+{
+  "name": "mern_todo_app",
+  "version": "1.0.0",
+  "description": "MERN stack todo application demonstrating CRUD API operations.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alex Rodriguez",
+  "license": "ISC"
+}
