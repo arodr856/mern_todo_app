@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
     
     const todo = new TodoModel({
-        todo: "Apply for jobs",
+        todo: req.body.todo,
         completed: false,
     });
 
@@ -20,5 +20,17 @@ router.post('/', (req, res) => {
         .then(t => res.json(t));
 
 });
+
+router.delete('/:id', (req, res) => {
+    TodoModel.findByIdAndDelete(req.params.id)
+        .then(todo => res.json(todo))
+        .catch(err => res.sendStatus(404).json(err));
+});
+
+router.put('/:id', (req, res) => {
+    TodoModel.findByIdAndUpdate(req.params.id, {todo: 'eat something'})
+        .then(todo => res.json(todo))
+        .catch(err => console.log(err));
+}); 
 
 module.exports = router;
