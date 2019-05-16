@@ -36,7 +36,6 @@ router.put('/:id', (req, res) => {
 }); 
 
 const getArgs = (body) => {
-    console.log(body);
     const args = {todo: 'work', completed: true};
     if(body.todo)
         args.todo = body.todo;
