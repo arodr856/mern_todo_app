@@ -5,7 +5,7 @@ import { fetch_todos } from './actions/todos-actions';
 import { connect } from 'react-redux';
 
 import TodoForm from './components/TodoForm';
-
+import TodoList from './components/TodoList';
 
 class App extends Component {
 
@@ -16,6 +16,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <TodoList/>
         <TodoForm/>
       </div>
     )
@@ -23,7 +24,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  todos: state.todos
+  todos: state.todos.todos
 });
 
 export default connect(mapStateToProps, {fetch_todos})(App);

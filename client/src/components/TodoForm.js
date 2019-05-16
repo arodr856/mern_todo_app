@@ -7,8 +7,9 @@ class TodoForm extends Component {
 
     state = {
         todo: '',
-        checked: false,
-        date: ''
+        priority: 'low',
+        date: '',
+        pLevels: ['low', 'med', 'high']
     }
 
     onSubmit = (e) => {
@@ -31,12 +32,15 @@ class TodoForm extends Component {
                 <form onSubmit={this.onSubmit}>
                     <label htmlFor='todo'>Todo</label>
                     <input type='text' name='todo' id='todo' placeholder='Add TODO' onChange={this.onChange}></input>
-
-                    <input type='checkbox' name='check' onChange={this.onChange} checked={this.checked}/>
                     <input type='datetime-local' name='date' onChange={this.onChange} checked={this.checked}/>
 
-                    
-
+                    <select onChange={this.onChange}>
+                        {this.state.pLevels.map((level, index)=> {
+                            return( 
+                                <option key={index} value={level}>{level}</option>
+                            );
+                        })}
+                    </select>
                     <button>submit</button>
                 </form>
             </div>
