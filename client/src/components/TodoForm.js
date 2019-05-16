@@ -18,6 +18,8 @@ class TodoForm extends Component {
             todo: this.state.todo,
             due_date: this.state.date
         })
+        
+        this.setState({todo: '', priority: 'low', date: ''})
     }  
 
     onChange = (e) => {
@@ -31,10 +33,10 @@ class TodoForm extends Component {
             <div>
                 <form onSubmit={this.onSubmit}>
                     <label htmlFor='todo'>Todo</label>
-                    <input type='text' name='todo' id='todo' placeholder='Add TODO' onChange={this.onChange}></input>
-                    <input type='datetime-local' name='date' onChange={this.onChange} checked={this.checked}/>
+                    <input type='text' name='todo' id='todo' placeholder='Add TODO' value={this.state.todo} onChange={this.onChange}></input>
+                    <input type='datetime-local' name='date' onChange={this.onChange} value={this.state.date} checked={this.checked}/>
 
-                    <select onChange={this.onChange}>
+                    <select name='priority' value={this.state.priority} onChange={this.onChange}>
                         {this.state.pLevels.map((level, index)=> {
                             return( 
                                 <option key={index} value={level}>{level}</option>
