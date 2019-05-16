@@ -1,4 +1,4 @@
-import { FETCH_TODOS } from './action-types';
+import { FETCH_TODOS, ADD_TODO } from './action-types';
 
 const axios = require('axios');
 
@@ -11,6 +11,15 @@ const fetch_todos = () => (dispatch) => {
         .catch(err => console.log(err));
 }
 
+const add_todo = (todo) => dispatch => {
+    console.log(todo);
+    axios.post('/api/todos', todo)
+        .then(res => dispatch({type: ADD_TODO, payload: res.data}))
+        .catch(err => console.log(err));
+
+}
+
 export {
-    fetch_todos
+    fetch_todos, 
+    add_todo
 }

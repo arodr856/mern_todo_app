@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 }); 
 
 router.post('/', (req, res) => {
-    
+    console.log(req.body)
     const todo = new TodoModel({
         todo: req.body.todo,
         completed: false,
