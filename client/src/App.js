@@ -5,7 +5,7 @@ import { fetch_todos } from './actions/todos-actions';
 import { connect } from 'react-redux';
 
 import TodoForm from './components/TodoForm';
-import TodoList from './components/TodoList';
+import TodosTable from './components/TodosTable';
 
 class App extends Component {
 
@@ -16,8 +16,8 @@ class App extends Component {
   render() {
     return (
       <div>
-        <TodoList/>
         <TodoForm/>
+        <TodosTable/>
       </div>
     )
   }

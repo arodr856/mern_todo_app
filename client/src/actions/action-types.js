@@ -1,7 +1,9 @@
 const FETCH_TODOS = 'FETCH_TODOS';
 const ADD_TODO = 'ADD_TODO';
+const TOGGLE_CHECKED = 'TOGGLE_CHECKED';
 
 export {
     FETCH_TODOS,
-    ADD_TODO
+    ADD_TODO,
+    TOGGLE_CHECKED
 }

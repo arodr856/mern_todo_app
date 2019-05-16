@@ -10,9 +10,9 @@ router.get('/', (req, res) => {
 }); 
 
 router.post('/', (req, res) => {
-    console.log(req.body)
     const todo = new TodoModel({
         todo: req.body.todo,
+        due_date: req.body.due_date,
         completed: false,
     });
 
@@ -36,12 +36,13 @@ router.put('/:id', (req, res) => {
 }); 
 
 const getArgs = (body) => {
-    const args = {todo: 'work', completed: true};
+    // const args = {todo: 'work', completed: true};
+    const args = {};
     if(body.todo)
         args.todo = body.todo;
         
-    if(body.completed)
-        args.completed = body.completed;
+    if(body.completed !== undefined)
+        args.completed = !body.completed;
     
     if(body.due_date)
         args.due_date = body.due_date;
