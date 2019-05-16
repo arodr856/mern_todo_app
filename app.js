@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const { todosRoute } = require('./routes/index');
 const { mongodbConfig } = require('./config/config');
 
-mongoose.connect(mongodbConfig.uri, {useNewUrlParser: true})
+mongoose.connect(mongodbConfig.uri, {useNewUrlParser: true, useFindAndModify: false})
 
 const app = express();
 

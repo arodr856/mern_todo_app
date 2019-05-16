@@ -28,9 +28,26 @@ router.delete('/:id', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-    TodoModel.findByIdAndUpdate(req.params.id, {todo: 'eat something'})
+    const args = getArgs(req.body);
+
+    TodoModel.findByIdAndUpdate(req.params.id, args)
         .then(todo => res.json(todo))
         .catch(err => console.log(err));
 }); 
+
+const getArgs = (body) => {
+    console.log(body);
+    const args = {todo: 'work', completed: true};
+    if(body.todo)
+        args.todo = body.todo;
+        
+    if(body.completed)
+        args.completed = body.completed;
+    
+    if(body.due_date)
+        args.due_date = body.due_date;
+    
+    return args;
+}
 
 module.exports = router;
