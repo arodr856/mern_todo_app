@@ -12,7 +12,6 @@ const fetch_todos = () => (dispatch) => {
 }
 
 const add_todo = (todo) => dispatch => {
-    console.log(todo);
     axios.post('/api/todos', todo)
         .then(res => dispatch({type: ADD_TODO, payload: res.data}))
         .catch(err => console.log(err));

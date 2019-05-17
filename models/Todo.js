@@ -5,7 +5,7 @@ const TodoSchema = new Schema({
 
     todo: { type: String },
     completed: {type: Boolean},
-    due_date: {type: Date}
+    due_date: {type: String}
     
 });
 
