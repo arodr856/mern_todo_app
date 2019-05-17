@@ -14,6 +14,7 @@ router.post('/', (req, res) => {
         todo: req.body.todo,
         due_date: req.body.due_date,
         completed: false,
+        priority: req.body.priority
     });
 
     todo.save()

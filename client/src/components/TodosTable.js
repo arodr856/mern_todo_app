@@ -11,6 +11,8 @@ class TodosTable extends Component {
     super(props);
 
     this.state = {
+      todo: '',
+      date: '',
       isEditing: false,
       editID: '',
       priority: 'low',
@@ -18,7 +20,7 @@ class TodosTable extends Component {
     }
   }
 
-  onChange = (todo,event) => {
+  toggleChecked = (todo,event) => {
     this.props.toggleChecked(todo);
   }
 
@@ -27,7 +29,17 @@ class TodosTable extends Component {
   }
 
   editTodo = (todo, event) => {
-    this.setState({isEditing: !this.state.isEditing, editID: todo._id});
+    this.setState({isEditing: !this.state.isEditing, editID: todo._id, todo: todo.todo, date: todo.due_date, priority: todo.priority});
+  }
+
+  onChange = (e) => {
+    const target = e.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    this.setState({[target.name]: value});
+  }
+
+  cancel = (e) => {
+    this.setState({isEditing: !this.state.isEditing, editID: '', todo: '', date: '', priority: ''});
   }
 
   displayRegularRows = () => {
@@ -36,7 +48,7 @@ class TodosTable extends Component {
         
           
           <tr key={todo._id}>
-            <td><input type='checkbox' checked={todo.completed} onChange={(e) => {this.onChange(todo, e)}}/></td>
+            <td> <input type='checkbox' checked={todo.completed} onChange={(e) => {this.toggleChecked(todo, e)}}/></td>
             <td>{todo.todo}</td>
             <td>{todo.due_date}</td>
             <td>{todo.priority}</td>
@@ -55,10 +67,11 @@ class TodosTable extends Component {
 
         return (
           <tr key={todo._id}>
-            <td><input type='text' value={todo.todo}></input></td>
-            <td><input type='datetime-local' value={todo.due_date}></input></td>
+            <td><input type='checkbox' checked={todo.completed} onChange={(e) => {this.toggleChecked(todo, e)}}/></td>
+            <td><input type='text' name='todo' id='todo' value={this.state.todo} onChange={this.onChange}></input></td>
+            <td><input type='datetime-local' name='date' onChange={this.onChange} value={this.state.date}></input></td>
             <td>
-              <select name='priority' value={todo.priority} onChange={this.onChange}>
+              <select name='priority' value={this.state.priority} onChange={this.onChange}>
                 {this.state.pLevels.map((level, index)=> {
                     return( 
                         <option key={index} value={level}>{level}</option>
@@ -66,18 +79,20 @@ class TodosTable extends Component {
                 })}
               </select>
             </td>
+            <td><button onClick={() => {console.log('save')}}>Save</button></td>
+            <td><button onClick={this.cancel}>Cancel</button></td>
           </tr>
         )
       }
 
       return (
         <tr key={todo._id}>
-          <td><input type='checkbox' checked={todo.completed} onChange={(e) => {this.onChange(todo, e)}}/></td>
+          <td><input type='checkbox' checked={todo.completed} onChange={(e) => {this.toggleChecked(todo, e)}}/></td>
           <td>{todo.todo}</td>
           <td>{todo.due_date}</td>
           <td>{todo.priority}</td>
-          <td><button onClick={(e) => {this.editTodo(todo, e)}}>Edit</button></td>
-          <td><button onClick={e => {this.deleteTodo(todo, e)}}>Delete</button></td>
+          <td><button disabled onClick={(e) => {this.editTodo(todo, e)}}>Edit</button></td>
+          <td><button disabled onClick={e => {this.deleteTodo(todo, e)}}>Delete</button></td>
         </tr>
       
       )
@@ -94,7 +109,8 @@ class TodosTable extends Component {
             <th>Todo</th>
             <th>Due Date</th>
             <th>Priority</th>
-            <th>Delete</th>
+            {this.state.isEditing ? <th>Save</th> : <th>Edit</th>}
+            {this.state.isEditing ? <th>Cancel</th> : <th>Delete</th>}
           </tr>
           </thead>
           <tbody>

@@ -16,7 +16,8 @@ class TodoForm extends Component {
         e.preventDefault();
         this.props.add_todo({
             todo: this.state.todo,
-            due_date: this.state.date
+            due_date: this.state.date,
+            priority: this.state.priority
         })
         
         this.setState({todo: '', priority: 'low', date: ''})
@@ -34,7 +35,7 @@ class TodoForm extends Component {
                 <form onSubmit={this.onSubmit}>
                     <label htmlFor='todo'>Todo</label>
                     <input type='text' name='todo' id='todo' placeholder='Add TODO' value={this.state.todo} onChange={this.onChange}></input>
-                    <input type='datetime-local' name='date' onChange={this.onChange} value={this.state.date} checked={this.checked}/>
+                    <input type='datetime-local' name='date' onChange={this.onChange} value={this.state.date} />
 
                     <select name='priority' value={this.state.priority} onChange={this.onChange}>
                         {this.state.pLevels.map((level, index)=> {
