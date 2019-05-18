@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Table } from 'reactstrap';
 
 import { connect } from 'react-redux';
-import { toggleChecked, deleteTodo } from '../actions/todos-actions';
+import { toggleChecked, deleteTodo, updateTodo } from '../actions/todos-actions';
 
 
 class TodosTable extends Component {
@@ -39,6 +39,21 @@ class TodosTable extends Component {
   }
 
   cancel = (e) => {
+    this.setState({isEditing: !this.state.isEditing, editID: '', todo: '', date: '', priority: ''});
+  }
+
+  save = (todo, event) => {
+    const args = {};
+    if(this.state.todo !== todo.todo)
+      args.todo = this.state.todo;
+
+    if(this.state.priority !== todo.priority)
+      args.priority = this.state.priority;
+
+    if(this.state.date !== todo.due_date)
+      args.due_date = this.state.date;
+    
+    this.props.updateTodo(args, todo._id);
     this.setState({isEditing: !this.state.isEditing, editID: '', todo: '', date: '', priority: ''});
   }
 
@@ -79,7 +94,7 @@ class TodosTable extends Component {
                 })}
               </select>
             </td>
-            <td><button onClick={() => {console.log('save')}}>Save</button></td>
+            <td><button onClick={(e) => {this.save(todo, e)}}>Save</button></td>
             <td><button onClick={this.cancel}>Cancel</button></td>
           </tr>
         )
@@ -129,4 +144,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {toggleChecked, deleteTodo})(TodosTable);
+export default connect(mapStateToProps, {toggleChecked, deleteTodo, updateTodo})(TodosTable);

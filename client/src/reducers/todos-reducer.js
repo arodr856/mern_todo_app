@@ -1,4 +1,4 @@
-import { FETCH_TODOS, ADD_TODO, TOGGLE_CHECKED, DELETE_TODO} from '../actions/action-types';
+import { FETCH_TODOS, ADD_TODO, TOGGLE_CHECKED, DELETE_TODO, UPDATE_TODO} from '../actions/action-types';
 
 const initialState = {
     todos: []
@@ -21,11 +21,12 @@ const todosReducer = (state = initialState, action) => {
 
         case DELETE_TODO:
             return {...state, todos: state.todos.filter(todo => {
-                if(todo._id === action.payload._id){
-                    return false;
-                }else{
-                    return true;
-                }
+                return (todo._id === action.payload._id) ? false : true;
+            })}
+
+        case UPDATE_TODO:
+            return {...state, todos: state.todos.map(todo => {
+                return (todo._id === action.payload.id) ? Object.assign(todo, action.payload.updatedArgs) : todo;
             })}
 
         default:

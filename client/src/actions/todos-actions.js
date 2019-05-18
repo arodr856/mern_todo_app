@@ -1,4 +1,4 @@
-import { FETCH_TODOS, ADD_TODO, TOGGLE_CHECKED, DELETE_TODO } from './action-types';
+import { FETCH_TODOS, ADD_TODO, TOGGLE_CHECKED, DELETE_TODO, UPDATE_TODO } from './action-types';
 
 const axios = require('axios');
 
@@ -30,9 +30,16 @@ const deleteTodo = (todo) => dispatch => {
         .catch(err => console.log(err));
 }
 
+const updateTodo = (updatedArgs, id) => dispatch => {
+    axios.put(`/api/todos/${id}`, updatedArgs)
+        .then(res => dispatch({type: UPDATE_TODO, payload: {updatedArgs, id}}))
+        .catch(err => console.log(err));
+}
+
 export {
     fetch_todos, 
     add_todo,
     toggleChecked,
-    deleteTodo
+    deleteTodo,
+    updateTodo
 }
